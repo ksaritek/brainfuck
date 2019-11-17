@@ -1,0 +1,15 @@
+@startuml
+
+[*] --> Parse
+Parse : - read the code
+Parse : - convert each statement to instructions
+Parse --> ByteCode
+ByteCode : - represent instructions for vm
+ByteCode --> VM
+VM : - get bytecode as input
+VM : - load instructions to stack
+VM --> Execute
+Execute : - stdin for input
+Execute : - stdout for output 
+
+@enduml
