@@ -41,7 +41,7 @@ func TestIncrementingDataPointer(t *testing.T) {
 
 	m.Execute()
 
-	for i, expected := range []int{1, 2, 3} {
+	for i, expected := range []uint8{1, 2, 3} {
 		if m.memory[i] != expected {
 			t.Errorf("memory[%d] wrong value, want=%d, got=%d",
 				i, expected, m.memory[0])
@@ -57,7 +57,7 @@ func TestDecrementDataPointer(t *testing.T) {
 
 	m.Execute()
 
-	for i, expected := range []int{1, 2, 3} {
+	for i, expected := range []uint8{1, 2, 3} {
 		if m.memory[i] != expected {
 			t.Errorf("memory[%d] wrong value, want=%d, got=%d",
 				i, expected, m.memory[0])
@@ -76,13 +76,13 @@ func TestReadChar(t *testing.T) {
 
 	m.Execute()
 
-	expectedMemory := []int{
-		int('A'),
-		int('B'),
-		int('C'),
-		int('D'),
-		int('E'),
-		int('F'),
+	expectedMemory := []uint8{
+		uint8('A'),
+		uint8('B'),
+		uint8('C'),
+		uint8('D'),
+		uint8('E'),
+		uint8('F'),
 	}
 
 	for i, expected := range expectedMemory {
@@ -102,13 +102,13 @@ func TestPutChar(t *testing.T) {
 
 	m := NewMachine(ins, in, out)
 
-	setupMemory := []int{
-		int('A'),
-		int('B'),
-		int('C'),
-		int('D'),
-		int('E'),
-		int('F'),
+	setupMemory := []uint8{
+		uint8('A'),
+		uint8('B'),
+		uint8('C'),
+		uint8('D'),
+		uint8('E'),
+		uint8('F'),
 	}
 
 	for i, value := range setupMemory {
@@ -124,21 +124,30 @@ func TestPutChar(t *testing.T) {
 
 }
 
-const HelloWorld = `++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.`
-
 func TestHelloWorld(t *testing.T) {
-	in := bytes.NewBufferString("")
-	out := new(bytes.Buffer)
+	type TestData struct {
+		s string
+		c string
+	}
 
-	c := compiler.NewCompiler(HelloWorld)
-	ins := c.Compile()
+	testData := []TestData{
+		{"Hello World!\n", "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++."},
+	}
 
-	m := NewMachine(ins, in, out)
+	for _, td := range testData {
+		in := bytes.NewBufferString("")
+		out := new(bytes.Buffer)
 
-	m.Execute()
+		c := compiler.NewCompiler(td.c)
+		ins := c.Compile()
 
-	output := out.String()
-	if output != "Hello World!\n" {
-		t.Errorf("output wrong. got=%q", output)
+		m := NewMachine(ins, in, out)
+
+		m.Execute()
+
+		output := out.String()
+		if output != td.s {
+			t.Errorf("output wrong. got=%q", output)
+		}
 	}
 }

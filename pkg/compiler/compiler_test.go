@@ -7,8 +7,8 @@ import (
 func TestCompile(t *testing.T) {
 	input := "+-><,."
 	expected := []*Instruction{
-		&Instruction{INC, 1},
-		&Instruction{DEC, 1},
+		&Instruction{INC, uint8(1)},
+		&Instruction{DEC, uint8(1)},
 		&Instruction{INCPTR, 1},
 		&Instruction{DECPTR, 1},
 		&Instruction{GETCHAR, nil},
@@ -33,15 +33,15 @@ func TestCompile(t *testing.T) {
 func TestCompileLoops(t *testing.T) {
 	input := `+[+[+]+]+`
 	expected := []*Instruction{
-		&Instruction{INC, 1},
+		&Instruction{INC, uint8(1)},
 		&Instruction{JZBRACKET, 7},
-		&Instruction{INC, 1},
+		&Instruction{INC, uint8(1)},
 		&Instruction{JZBRACKET, 5},
-		&Instruction{INC, 1},
+		&Instruction{INC, uint8(1)},
 		&Instruction{JNZBRACKET, 3},
-		&Instruction{INC, 1},
+		&Instruction{INC, uint8(1)},
 		&Instruction{JNZBRACKET, 1},
-		&Instruction{INC, 1},
+		&Instruction{INC, uint8(1)},
 	}
 
 	compiler := NewCompiler(input)
@@ -62,15 +62,15 @@ func TestCompileLoops(t *testing.T) {
 func TestCompileEverything(t *testing.T) {
 	input := `+++[---[+]>>>]<<<`
 	expected := []*Instruction{
-		&Instruction{INC, 1},
-		&Instruction{INC, 1},
-		&Instruction{INC, 1},
+		&Instruction{INC, uint8(1)},
+		&Instruction{INC, uint8(1)},
+		&Instruction{INC, uint8(1)},
 		&Instruction{JZBRACKET, 13},
-		&Instruction{DEC, 1},
-		&Instruction{DEC, 1},
-		&Instruction{DEC, 1},
+		&Instruction{DEC, uint8(1)},
+		&Instruction{DEC, uint8(1)},
+		&Instruction{DEC, uint8(1)},
 		&Instruction{JZBRACKET, 9},
-		&Instruction{INC, 1},
+		&Instruction{INC, uint8(1)},
 		&Instruction{JNZBRACKET, 7},
 		&Instruction{INCPTR, 1},
 		&Instruction{INCPTR, 1},
