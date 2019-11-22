@@ -30,9 +30,9 @@ func (c *Compiler) Compile() []*Instruction {
 			c.instructions[openPos].Operand = i
 
 		case '+':
-			c.instructions[i] = &Instruction{Operator: INC, Operand: 1}
+			c.instructions[i] = &Instruction{Operator: INC, Operand: uint8(1)}
 		case '-':
-			c.instructions[i] = &Instruction{Operator: DEC, Operand: 1}
+			c.instructions[i] = &Instruction{Operator: DEC, Operand: uint8(1)}
 		case '<':
 			c.instructions[i] = &Instruction{Operator: DECPTR, Operand: 1}
 		case '>':

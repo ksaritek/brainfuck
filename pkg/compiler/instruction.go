@@ -38,13 +38,13 @@ func LoadInstructions(r io.Reader) []*Instruction {
 			if o, err := strconv.Atoi(i[1]); err != nil {
 				panic(fmt.Errorf("could not parse INC - %v", i))
 			} else {
-				instructions = pushInstruction(instructions, INC, o)
+				instructions = pushInstruction(instructions, INC, uint8(o))
 			}
 		case "DEC":
 			if o, err := strconv.Atoi(i[1]); err != nil {
 				panic(fmt.Errorf("could not parse DEC - %v", i))
 			} else {
-				instructions = pushInstruction(instructions, DEC, o)
+				instructions = pushInstruction(instructions, DEC, uint8(o))
 			}
 		case "INCPTR":
 			if o, err := strconv.Atoi(i[1]); err != nil {

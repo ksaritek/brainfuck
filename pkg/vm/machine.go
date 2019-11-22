@@ -10,7 +10,7 @@ type Machine struct {
 	code []*compiler.Instruction
 	ip   int
 
-	memory [30000]int
+	memory [30000]uint8
 	dp     int
 
 	input  io.Reader
@@ -34,9 +34,9 @@ func (m *Machine) Execute() {
 
 		switch ins.Operator {
 		case compiler.INC:
-			m.memory[m.dp] += ins.Operand.(int)
+			m.memory[m.dp] += ins.Operand.(uint8)
 		case compiler.DEC:
-			m.memory[m.dp] -= ins.Operand.(int)
+			m.memory[m.dp] -= ins.Operand.(uint8)
 		case compiler.INCPTR:
 			m.dp += ins.Operand.(int)
 		case compiler.DECPTR:
@@ -70,7 +70,7 @@ func (m *Machine) getChar() {
 		panic("wrong num bytes read")
 	}
 
-	m.memory[m.dp] = int(m.readBuf[0])
+	m.memory[m.dp] = uint8(m.readBuf[0])
 }
 
 func (m *Machine) putChar() {
