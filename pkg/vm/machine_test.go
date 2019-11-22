@@ -124,14 +124,16 @@ func TestPutChar(t *testing.T) {
 
 }
 
-func TestHelloWorld(t *testing.T) {
+func TestByteCode(t *testing.T) {
 	type TestData struct {
 		s string
 		c string
 	}
 
 	testData := []TestData{
-		{"Hello World!\n", "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++."},
+		{"Hello World!\n", `++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.`},
+		{"This is pretty cool.", `-[--->+<]>-.[---->+++++<]>-.+.++++++++++.+[---->+<]>+++.-[--->++<]>-.++++++++++.+[---->+<]>+++.[-->+++++++<]>.++.-------------.[--->+<]>---..+++++.-[---->+<]>++.+[->+++<]>.++++++++++++..---.[-->+<]>--------.`},
+		{"H", `-[------->+<]>-.`},
 	}
 
 	for _, td := range testData {
@@ -147,7 +149,7 @@ func TestHelloWorld(t *testing.T) {
 
 		output := out.String()
 		if output != td.s {
-			t.Errorf("output wrong. got=%q", output)
+			t.Errorf("output wrong. expected=%q ; got=%q", td.s, output)
 		}
 	}
 }
