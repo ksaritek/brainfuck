@@ -35,6 +35,13 @@ go build cmd/vm/bf.go
 ./bf samples/helloworld.bf.bytecode
 ```
 
+## generate test code
+you can generate code from: 
+```
+https://copy.sh/brainfuck/text.html
+```
+
+
 ## instruction list
 
 | Statement | Operator | Desc | 
